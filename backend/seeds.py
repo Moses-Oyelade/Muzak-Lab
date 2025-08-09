@@ -9,7 +9,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sampletracker.settings")
 django.setup()
 
 from django.contrib.auth import get_user_model
-from samples.models import Patient, TestType, Sample
+from samples.models import Patient, SampleType, TestType, Sample
 
 
 fake = Faker()
@@ -62,13 +62,25 @@ def seed_test_types():
             print(f"Test type already exists: {name}")
     return types
 
+def seed_sample_types():
+    sample_names = ['Blood', 'Urine', 'Saliva', 'stool', 'tissue']
+    types = []
+    for name in sample_names:
+        sample_type, created = SampleType.objects.get_or_create(name=name)
+        types.append(sample_type)
+        if created:
+            print(f"Added sample type: {name}")
+        else:
+            print(f"Sample type already exists: {name}")
+    return types
 
-def seed_samples(patients, test_types, n=10):
+
+def seed_samples(patients, test_types, sample_types, n=10):
     statuses = ["Collected", "Received", "Processing", "Completed"]
 
     for _ in range(n):
         patient = random.choice(patients)
-        sample_type = random.choice(['Blood', 'Urine', 'Saliva', 'stool', 'tissue'])
+        sample_type = random.choice(sample_types)
         test_type = random.choice(test_types)
         status = random.choice(statuses)
 
@@ -89,5 +101,6 @@ if __name__ == "__main__":
     seed_users()
     patients = seed_patients(5)
     test_types= seed_test_types()
-    seed_samples(patients, test_types, 10)
+    sample_types= seed_sample_types()
+    seed_samples(patients, test_types, sample_types, 10)
     print("Seeding complete!")

@@ -2,8 +2,8 @@
 
 from rest_framework import viewsets, permissions
 from accounts.permissions import IsCollector, IsTechnician
-from .models import Sample, StatusHistory, Patient, TestType
-from .serializers import SampleSerializer, StatusHistorySerializer, PatientSerializer, TestTypeSerializer
+from .models import Sample, SampleType, StatusHistory, Patient, TestType
+from .serializers import SampleSerializer, StatusHistorySerializer, PatientSerializer, TestTypeSerializer, SampleTypeSerializer
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
@@ -48,3 +48,8 @@ class TestTypeViewSet(viewsets.ModelViewSet):
     queryset = TestType.objects.all()
     serializer_class = TestTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class SampleTypeViewSet(viewsets.ModelViewSet):
+    queryset = SampleType.objects.all()
+    serializer_class = SampleTypeSerializer
+    permission_classes = [permissions.IsAuthenticated] 

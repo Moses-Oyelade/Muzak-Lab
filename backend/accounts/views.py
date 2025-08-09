@@ -7,4 +7,4 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # permission_classes = [IsAdmin]
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]

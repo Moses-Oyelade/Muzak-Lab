@@ -18,6 +18,12 @@ class TestType(models.Model):
     
     def __str__(self):
         return self.name
+    
+class SampleType(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
 
 class Sample(models.Model):
     SAMPLE_STATUS = [
@@ -29,7 +35,7 @@ class Sample(models.Model):
 
     sample_id = models.CharField(max_length=100, unique=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='samples', default=1)
-    sample_type = models.CharField(max_length=100)
+    sample_type = models.ForeignKey(SampleType, on_delete=models.CASCADE, related_name='samples')
     test_type = models.ForeignKey(TestType, on_delete=models.CASCADE, related_name='samples')
     
     collected_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='collected_samples')
