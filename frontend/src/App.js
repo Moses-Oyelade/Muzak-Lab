@@ -16,19 +16,28 @@ import UnauthorizedPage from './pages/UnauthorizedPage';
 
 import UsersList from './components/users/UsersList';
 import Header from './components/layout/Header';
+import ResultTrackerPage from './pages/ResultTrackerPage';
 
 function App() {
   return (
     <BrowserRouter>
     <AuthProvider>
-      <Header />
       <div className="p-4">
         <Routes>
           <Route 
             path="/" 
             element={
-              <ProtectedRoute>
+              <>
+                <Header />
                 <HomePage />
+              </>
+            } 
+          />
+          <Route 
+            path="/result-tracker" 
+            element={
+              <ProtectedRoute>
+                <ResultTrackerPage />
               </ProtectedRoute>
             } 
           />

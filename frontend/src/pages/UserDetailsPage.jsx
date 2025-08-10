@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import  getUserById  from '../services/userService';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const UserDetailsPage = () => {
   const { id } = useParams();  // ✅ Extract ID from URL
@@ -11,7 +12,7 @@ const UserDetailsPage = () => {
     getUserById(id).then(setUser);
   }, [id]);
 
-  if (!user) return <div>Loading user...</div>;
+  if (!user) return <LoadingSpinner />;
 
   return (
     <div className="p-4">
