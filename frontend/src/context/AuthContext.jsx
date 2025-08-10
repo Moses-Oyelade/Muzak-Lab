@@ -16,8 +16,9 @@ export const AuthProvider = ({ children }) => {
     const token = getAccessToken();
     if (token) {
       setUser({ token });
+      setLoading(false)
     } else {
-        setLoading(false)
+      setLoading(false)
     }
   }, []);
 

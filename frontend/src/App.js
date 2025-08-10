@@ -11,10 +11,11 @@ import CreateSamplePage from "./pages/CreateSamplePage";
 import SampleDetailsPage from "./pages/SampleDetailsPage";
 import UserDetailsPage from './pages/UserDetailsPage';
 import LoginPage from "./pages/LoginPage";
+import HomePage from './pages/HomePage';
+import UnauthorizedPage from './pages/UnauthorizedPage';
 
 import UsersList from './components/users/UsersList';
 import Header from './components/layout/Header';
-import UnauthorizedPage from './pages/UnauthorizedPage';
 
 function App() {
   return (
@@ -27,26 +28,30 @@ function App() {
             path="/" 
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <HomePage />
               </ProtectedRoute>
-            } 
-          />
-          <Route path="/samples" element={<SamplesPage />} />
-          <Route path="/patients" element={<PatientsPage />} />
-          <Route path="/test-types" element={<TestTypesPage />} />
-          <Route path="/samples/new" element={<CreateSamplePage />} />
-          <Route path="/samples/:id" element={<SampleDetailsPage />} />
-          <Route path="/users" element={<UsersList />} />
-          <Route 
-            path="/users/:id" 
-            element={
-            <RoleProtectedPage allowedRoles={['admin']}>
-              <UserDetailsPage />
-            </RoleProtectedPage>
             } 
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/unauthorizedPage" element={<UnauthorizedPage />} />
+          
+          <Route element={<RoleProtectedPage allowedRoles={['admin']} />}>
+            <Route path="/users" element={<UsersList />} />
+            <Route path="/users/:id" element={<UserDetailsPage />} />
+          </Route>
+
+          <Route element={<RoleProtectedPage allowedRoles={['admin', 'technician']} />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/samples/:id" element={<SampleDetailsPage />} />
+            <Route path="/test-types" element={<TestTypesPage />} />
+          </Route>
+
+          <Route element={<RoleProtectedPage allowedRoles={['admin', 'collector']} />}>
+            <Route path="/patients" element={<PatientsPage />} />
+            <Route path="/samples/create" element={<CreateSamplePage />} />
+            <Route path="/samples" element={<SamplesPage />} />
+          </Route>
+          
           <Route path="*" element={<Navigate to='/unauthorizedPage' replace />} />
         </Routes>
       </div>

@@ -1,9 +1,8 @@
-// src/pages/LoginPage.jsx
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,6 +10,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await login(username, password);
+    console.log('User Credentials: ', success)
     if (!success) {
       setError('Invalid credentials');
     } else {

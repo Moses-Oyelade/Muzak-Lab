@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import  getUserById  from '../services/userService';
 
-const UserDetails = () => {
+const UserDetailsPage = () => {
   const { id } = useParams();  // ✅ Extract ID from URL
   const [user, setUser] = useState(null);
 
@@ -24,4 +24,4 @@ const UserDetails = () => {
   );
 };
 
-export default UserDetails;
+export default UserDetailsPage;

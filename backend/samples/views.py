@@ -26,7 +26,7 @@ class SampleViewSet(viewsets.ModelViewSet):
     serializer_class = SampleSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
-        'status': ['exact'],
+        'status': ['exact','icontains'],
         'updated_at': ['gte', 'lte'],
     }
 
