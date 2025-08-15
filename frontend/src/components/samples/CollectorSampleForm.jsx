@@ -37,14 +37,14 @@ export default function CollectorSampleForm() {
     e.preventDefault();
 
     try {
-      // 1️⃣ Check if patient exists
+      // Check if patient exists
       const patientRes = await axiosClient.get(`/patients?identifier=${form.identifier}`);
       let patientId;
 
       if (patientRes.data.length > 0) {
         patientId = patientRes.data[0].id; // existing
       } else {
-        // 2️⃣ Create patient
+        // Create patient
         const newPatient = await axiosClient.post("/patients/", {
           name: form.name,
           date_of_birth: form.date_of_birth,
@@ -56,13 +56,13 @@ export default function CollectorSampleForm() {
         patientId = newPatient.data.id;
       }
 
-      // 3️⃣ Create sample
+      // Create sample
       await axiosClient.post("/samples/", {
         patient_id: patientId,
         sample_type: form.sample_type,
         test_type: form.test_type,
         collection_date: form.collection_date,
-        status: "collected"
+        // status: "collected"
       });
 
       alert("Sample request created successfully!");

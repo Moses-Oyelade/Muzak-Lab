@@ -16,7 +16,7 @@ const LoginPage = () => {
     } else {
       setError('');
       // Redirect to dashboard or home page
-      window.location.href = '/';
+      window.location.href = '/result-tracker';
     }
   };
 

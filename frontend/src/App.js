@@ -17,6 +17,7 @@ import UnauthorizedPage from './pages/UnauthorizedPage';
 import UsersList from './components/users/UsersList';
 import Header from './components/layout/Header';
 import ResultTrackerPage from './pages/ResultTrackerPage';
+import Nav from './components/layout/Nav';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             path="/result-tracker" 
             element={
               <ProtectedRoute>
+                <Nav />
                 <ResultTrackerPage />
               </ProtectedRoute>
             } 
