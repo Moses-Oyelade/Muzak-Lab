@@ -17,19 +17,20 @@ import UnauthorizedPage from './pages/UnauthorizedPage';
 import UsersList from './components/users/UsersList';
 import Header from './components/layout/Header';
 import ResultTrackerPage from './pages/ResultTrackerPage';
-import Nav from './components/layout/Nav';
+// import Nav from './components/layout/Nav';
 
 function App() {
   return (
     <BrowserRouter>
     <AuthProvider>
       <div className="p-4">
+        <Header />
         <Routes>
+          <Route path="/login" element={<LoginPage />} />
           <Route 
             path="/" 
             element={
               <>
-                <Header />
                 <HomePage />
               </>
             } 
@@ -38,13 +39,12 @@ function App() {
             path="/result-tracker" 
             element={
               <ProtectedRoute>
-                <Nav />
+                {/* <Nav /> */}
                 <ResultTrackerPage />
               </ProtectedRoute>
             } 
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/unauthorizedPage" element={<UnauthorizedPage />} />
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
           
           <Route element={<RoleProtectedPage allowedRoles={['admin']} />}>
             <Route path="/users" element={<UsersList />} />
@@ -63,7 +63,7 @@ function App() {
             <Route path="/samples" element={<SamplesPage />} />
           </Route>
           
-          <Route path="*" element={<Navigate to='/unauthorizedPage' replace />} />
+          <Route path="*" element={<Navigate to='/unauthorized' replace />} />
         </Routes>
       </div>
     </AuthProvider>
