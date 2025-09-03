@@ -26,24 +26,23 @@ function App() {
       <div className="p-4">
         <Header />
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
           <Route 
             path="/" 
             element={
-              <>
+              <ProtectedRoute>
                 <HomePage />
-              </>
+              </ProtectedRoute>
             } 
           />
           <Route 
             path="/result-tracker" 
             element={
               <ProtectedRoute>
-                {/* <Nav /> */}
                 <ResultTrackerPage />
               </ProtectedRoute>
             } 
           />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           
           <Route element={<RoleProtectedPage allowedRoles={['admin']} />}>
