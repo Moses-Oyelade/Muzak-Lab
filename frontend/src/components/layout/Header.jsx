@@ -1,9 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const location = useLocation();
   
   
 
@@ -17,7 +18,12 @@ const Header = () => {
     {user && (
         <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
           <div>
-            <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Dashboard</Link>
+            { location.pathname === '/' ? (
+              <div className="font-bold text-2xl">🔬Home</div>
+            ) : (
+              <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Dashboard</Link>
+            )
+            }
           </div>
           <div className='space-x-8 drop-shadow-sm items- justify-between'>
             <Link 

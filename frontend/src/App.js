@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import RoleProtectedPage from './routes/ProtectedRoute';
+// import RoleProtectedPage from './routes/ProtectedRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 import Dashboard from './pages/Dashboard';
 import SamplesPage from './pages/SamplesPage';
 import PatientsPage from './pages/PatientsPage';
+import PatientDetailsPage from './pages/PatientDetailsPage';
 import TestTypesPage from './pages/TestTypePage';
 import CreateSamplePage from "./pages/CreateSamplePage";
 import SampleDetailsPage from "./pages/SampleDetailsPage";
@@ -14,9 +15,11 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from './pages/HomePage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
 
-import UsersList from './components/users/UsersList';
+import UsersPage from './pages/UsersPage';
 import Header from './components/layout/Header';
 import ResultTrackerPage from './pages/ResultTrackerPage';
+import DashboardLayout from './components/layout/DashboardLayout';
+import EditPatientPage from './pages/EditPatientPage';
 // import Nav from './components/layout/Nav';
 
 function App() {
@@ -38,29 +41,39 @@ function App() {
             path="/result-tracker" 
             element={
               <ProtectedRoute>
-                <ResultTrackerPage />
+                {/* <DashboardLayout> */}
+                  <ResultTrackerPage />
+                {/* </DashboardLayout> */}
               </ProtectedRoute>
             } 
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           
-          <Route element={<RoleProtectedPage allowedRoles={['admin']} />}>
-            <Route path="/users" element={<UsersList />} />
+          {/* <Route element={<RoleProtectedPage allowedRoles={['admin']} />}> */}
+            <Route path="/users" 
+              element={
+                <DashboardLayout>
+                  <UsersPage />
+                </DashboardLayout>
+              } 
+            />
             <Route path="/users/:id" element={<UserDetailsPage />} />
-          </Route>
+          {/* </Route> */}
 
-          <Route element={<RoleProtectedPage allowedRoles={['admin', 'technician']} />}>
+          {/* <Route element={<RoleProtectedPage allowedRoles={['admin', 'technician']} />}> */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/samples/:id" element={<SampleDetailsPage />} />
             <Route path="/test-types" element={<TestTypesPage />} />
-          </Route>
+          {/* </Route> */}
 
-          <Route element={<RoleProtectedPage allowedRoles={['admin', 'collector']} />}>
+          {/* <Route element={<RoleProtectedPage allowedRoles={['admin', 'collector']} />}> */}
             <Route path="/patients" element={<PatientsPage />} />
+            <Route path="/patients/:id" element={<PatientDetailsPage />} />
+            <Route path="/patients/:id/edit" element={<EditPatientPage />} />
             <Route path="/samples/create" element={<CreateSamplePage />} />
             <Route path="/samples" element={<SamplesPage />} />
-          </Route>
+          {/* </Route> */}
           
           <Route path="*" element={<Navigate to='/unauthorized' replace />} />
         </Routes>
