@@ -14,6 +14,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, username, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("role", "admin")
         return self.create_user(username, password, **extra_fields)
 
 class User(AbstractUser):
@@ -22,7 +23,7 @@ class User(AbstractUser):
         ('technician', 'Lab Technician'),
         ('collector', 'Collector'),
     ]
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='clerk')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='collector')
 
     objects = UserManager()
 
