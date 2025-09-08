@@ -27,6 +27,7 @@ class SampleViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
         'status': ['exact','icontains'],
+        'patient__name': ['exact','icontains'],
         'updated_at': ['gte', 'lte'],
     }
 
