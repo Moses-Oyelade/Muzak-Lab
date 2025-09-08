@@ -44,7 +44,7 @@ const PatientDetailsPage = () => {
       <p><strong>Email:</strong> {patient.email}</p>
       <p><strong>Created:</strong> {new Date(patient.createdAt).toLocaleDateString()}</p>
 
-      {user.role === "admin" && (
+      {user?.role === "admin" && (
         <div className="mt-4 flex gap-4">
           <button
             onClick={() => navigate(`/patients/${id}/edit`)}

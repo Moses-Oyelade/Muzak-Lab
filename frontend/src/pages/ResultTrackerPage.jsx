@@ -2,54 +2,129 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../utils/axiosClient";
 
 export default function ResultTrackerPage() {
-    const [completedSamples, setCompletedSamples] = useState([]);
-    const [statusFilter, setStatusFilter] = useState('completed'); // default filter
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+  const [samples, setSamples] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("completed");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-    useEffect(() => {
-        // Build query params
-        const params = new URLSearchParams();
-        if (statusFilter) params.append('status__icontains', statusFilter);
-        if (startDate) params.append('updated_at__gte', startDate); // updated_at >= startDate
-        if (endDate) params.append('updated_at__lte', endDate); // updated_at <= endDate
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (statusFilter) params.append("status__icontains", statusFilter);
+    if (startDate) params.append("updated_at__gte", startDate);
+    if (endDate) params.append("updated_at__lte", endDate);
+    if (searchQuery) params.append("patient__name__icontains", searchQuery);
 
-        axiosClient.get(`/samples?${params.toString()}`)
-        .then(res => setCompletedSamples(res.data))
-        .catch(err => console.error(err));
-    }, [statusFilter, startDate, endDate]);
+    axiosClient
+      .get(`/samples?${params.toString()}`)
+      .then((res) => setSamples(res.data))
+      .catch((err) => console.error(err));
+  }, [statusFilter, startDate, endDate, searchQuery]);
 
   return (
-    <div>
+    <div className="space-y-6">
+      {/* Filters */}
+      <div className="bg-white p-4 rounded-lg shadow-md flex flex-wrap items-end gap-4">
+        {/* Status Filter */}
         <div>
-        <label>Status: </label>
-        <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
-          <option value="">All</option>
-          <option value="collected">Collected</option>
-          <option value="received">Received</option>
-          <option value="processing">Processing</option>
-          <option value="completed">Completed</option>
-        </select>
+          <label className="block text-sm font-medium text-gray-700">
+            Status
+          </label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+          >
+            <option value="">All</option>
+            <option value="collected">Collected</option>
+            <option value="received">Received</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        {/* Start Date */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Start Date
+          </label>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+          />
+        </div>
+
+        {/* End Date */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            End Date
+          </label>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+          />
+        </div>
+
+        {/* Patient Search */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Search Patient
+          </label>
+          <input
+            type="text"
+            placeholder="Enter patient name..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="mt-1 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+          />
+        </div>
       </div>
 
+      {/* Results */}
       <div>
-        <label>Start Updated Date: </label>
-        <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
-      </div>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Samples</h2>
 
-      <div>
-        <label>End Updated Date: </label>
-        <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+        {samples.length === 0 ? (
+          <p className="text-gray-500">No samples found.</p>
+        ) : (
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {samples.map((sample) => (
+              <li
+                key={sample.id}
+                className="bg-white p-4 rounded-lg shadow-md border border-gray-200"
+              >
+                <p className="text-lg font-semibold text-gray-800">
+                  {sample.patient?.name || "Unknown Patient"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Test: {sample.test_type?.name || "N/A"}
+                </p>
+                <p
+                  className={`inline-block mt-2 px-2 py-1 rounded-full text-xs font-medium ${
+                    sample.status === "completed"
+                      ? "bg-green-100 text-green-800"
+                      : sample.status === "processing"
+                      ? "bg-yellow-100 text-yellow-800"
+                      : sample.status === "received"
+                      ? "bg-blue-100 text-blue-800"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  {sample.status}
+                </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  Updated:{" "}
+                  {new Date(sample.updated_at).toLocaleDateString("en-US")}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-
-      <h2>Samples</h2>
-      <ul>
-        {completedSamples.map(sample => (
-          <li key={sample.id}>
-            {sample.patient.name} - {sample.test_type.name} ({sample.status}) - Updated: {new Date(sample.updated_at).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
     </div>
-  )
+  );
 }

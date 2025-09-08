@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-// import RoleProtectedPage from './routes/ProtectedRoute';
+import RoleProtectedRoute from './routes/RoleProtected';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 import Dashboard from './pages/Dashboard';
@@ -29,51 +29,36 @@ function App() {
       <div className="p-4">
         <Header />
         <Routes>
-          <Route 
-            path="/" 
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/result-tracker" 
-            element={
-              <ProtectedRoute>
-                {/* <DashboardLayout> */}
-                  <ResultTrackerPage />
-                {/* </DashboardLayout> */}
-              </ProtectedRoute>
-            } 
-          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           
-          {/* <Route element={<RoleProtectedPage allowedRoles={['admin']} />}> */}
-            <Route path="/users" 
-              element={
-                <DashboardLayout>
-                  <UsersPage />
-                </DashboardLayout>
-              } 
-            />
-            <Route path="/users/:id" element={<UserDetailsPage />} />
-          {/* </Route> */}
+          <Route element={<ProtectedRoute />}>
+            <Route path='/' element={<HomePage />} />
+            <Route element={<DashboardLayout />}>
+              <Route path="/result-tracker" element={<ResultTrackerPage />} />
+            </Route>
+          </Route>
 
-          {/* <Route element={<RoleProtectedPage allowedRoles={['admin', 'technician']} />}> */}
+          <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="/users" element={<UsersPage />} />
+            </Route>
+            <Route path="/users/:id" element={<UserDetailsPage />} />
+          </Route>
+
+          <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician', 'collector']} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/samples/:id" element={<SampleDetailsPage />} />
             <Route path="/test-types" element={<TestTypesPage />} />
-          {/* </Route> */}
+          </Route>
 
-          {/* <Route element={<RoleProtectedPage allowedRoles={['admin', 'collector']} />}> */}
+          <Route element={<RoleProtectedRoute allowedRoles={['admin', 'collector']} />}>
             <Route path="/patients" element={<PatientsPage />} />
             <Route path="/patients/:id" element={<PatientDetailsPage />} />
             <Route path="/patients/:id/edit" element={<EditPatientPage />} />
             <Route path="/samples/create" element={<CreateSamplePage />} />
             <Route path="/samples" element={<SamplesPage />} />
-          {/* </Route> */}
+          </Route>
           
           <Route path="*" element={<Navigate to='/unauthorized' replace />} />
         </Routes>
