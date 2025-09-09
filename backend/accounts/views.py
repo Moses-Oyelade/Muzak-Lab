@@ -3,11 +3,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from .models import User
+from .pagination import CustomPagination
 # from .permissions import IsAdmin
 
 class UserListView(generics.ListAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('-id')
     serializer_class = UserSerializer
+    pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
         'email': ['exact', 'icontains'],  

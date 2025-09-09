@@ -5,10 +5,12 @@ from accounts.permissions import IsCollector, IsTechnician
 from .models import Sample, SampleType, StatusHistory, Patient, TestType
 from .serializers import SampleSerializer, StatusHistorySerializer, PatientSerializer, TestTypeSerializer, SampleTypeSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+from .pagination import CustomPagination
 
 class PatientViewSet(viewsets.ModelViewSet):
-    queryset = Patient.objects.all()
+    queryset = Patient.objects.all().order_by('-id')
     serializer_class = PatientSerializer
+    pagination_class = CustomPagination
     
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
@@ -24,6 +26,8 @@ class PatientViewSet(viewsets.ModelViewSet):
 class SampleViewSet(viewsets.ModelViewSet):
     queryset = Sample.objects.all().order_by('-updated_at')
     serializer_class = SampleSerializer
+    pagination_class = CustomPagination
+    
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
         'status': ['exact','icontains'],
@@ -58,6 +62,8 @@ class SampleViewSet(viewsets.ModelViewSet):
 class StatusHistoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StatusHistory.objects.all().order_by('-changed_at')
     serializer_class = StatusHistorySerializer
+    pagination_class = CustomPagination
+    
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
         'sample': ['exact'],
