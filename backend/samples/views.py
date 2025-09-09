@@ -15,7 +15,7 @@ class PatientViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
         'email': ['exact', 'icontains'],      # exact match or case-insensitive contains
-        'gender': ['exact'],
+        'gender': ['exact', 'icontains'],
         'phone': ['exact', 'icontains'],
         'identifier': ['exact', 'icontains'],
         'name': ['exact', 'icontains'],
