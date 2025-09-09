@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import patientServices from "../services/patientService";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "../context/AuthContext";
+import UnauthorizedPage from "./UnauthorizedPage";
 
 const EditPatientPage = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const EditPatientPage = () => {
 
   if (loading) return <LoadingSpinner />;
   if (!patient) return <p className="p-4">Patient not found</p>;
-  if (user?.role !== "admin") return <p className="p-4">Unauthorized</p>;
+  if (user?.role !== "admin") return <UnauthorizedPage />;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

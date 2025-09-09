@@ -7,6 +7,9 @@ export default function ResultTrackerPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const limit = 10;
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -14,17 +17,21 @@ export default function ResultTrackerPage() {
     if (startDate) params.append("updated_at__gte", startDate);
     if (endDate) params.append("updated_at__lte", endDate);
     if (searchQuery) params.append("patient__name__icontains", searchQuery);
+    params.append("page", currentPage);
 
     axiosClient
       .get(`/samples?${params.toString()}`)
-      .then((res) => setSamples(res.data))
+      .then((res) => {
+        setSamples(res.data.results);
+        setTotalPages(Math.ceil(res.data.count / limit));
+      })
       .catch((err) => console.error(err));
-  }, [statusFilter, startDate, endDate, searchQuery]);
+  }, [statusFilter, startDate, endDate, searchQuery, currentPage]);
 
   return (
     <div className="space-y-6">
       {/* Filters */}
-      <div className="bg-white p-4 rounded-lg shadow-md flex flex-wrap items-end gap-4">
+      <div className="bg-slate-200 p-4 rounded-lg shadow-md flex flex-wrap items-end gap-4">
         {/* Status Filter */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -95,7 +102,7 @@ export default function ResultTrackerPage() {
             {samples.map((sample) => (
               <li
                 key={sample.id}
-                className="bg-white p-4 rounded-lg shadow-md border border-gray-200"
+                className="bg-slate-200 p-4 rounded-lg shadow-md border border-gray-200"
               >
                 <p className="text-lg font-semibold text-gray-800">
                   {sample.patient?.name || "Unknown Patient"}
@@ -124,6 +131,25 @@ export default function ResultTrackerPage() {
             ))}
           </ul>
         )}
+      </div>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+
+        <span>Page {currentPage} of {totalPages}</span>
+
+        <button
+          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

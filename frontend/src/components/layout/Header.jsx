@@ -16,10 +16,18 @@ const Header = () => {
   return (
     <>
     {user && (
-        <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <nav className="bg-blue-800 text-white p-4 flex justify-between items-center">
           <div>
             { location.pathname === '/' ? (
               <div className="font-bold text-2xl">🔬Home</div>
+            ) 
+            : 
+            location.pathname === '/result-tracker' ? (
+              <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Results</Link>
+            )
+            : 
+            location.pathname === '/patients' ? (
+              <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Patients</Link>
             ) : (
               <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Dashboard</Link>
             )
