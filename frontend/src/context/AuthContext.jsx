@@ -4,6 +4,7 @@ import {
   logout as authLogout,
   getAccessToken,
   getUserRole,
+  getUserName,
 } from '../services/authService';
 
 export const AuthContext = createContext();
@@ -16,9 +17,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = getAccessToken();
     const role = getUserRole();
+    const username = getUserName();
     if (token && role) {
-      setUser({ token, role });
-      console.log(`Token: ${token} and Role: ${role}`)
+      setUser({ token, role, username });
+      console.log(`Token: ${token}, Role: ${role} and Username: ${username}`)
       setLoading(false)
     } else if (token) {
       setUser({token})
@@ -35,6 +37,7 @@ export const AuthProvider = ({ children }) => {
       setUser({ 
         token: data.access,
         role: data.role,
+        username: data.username
        });
       return true;
     } catch (err) {

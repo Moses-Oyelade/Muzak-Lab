@@ -31,51 +31,7 @@ export default function ResultTrackerPage() {
   return (
     <div className="space-y-6">
       {/* Filters */}
-      <div className="bg-slate-200 p-4 rounded-lg shadow-md flex flex-wrap items-end gap-4">
-        {/* Status Filter */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Status
-          </label>
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-          >
-            <option value="">All</option>
-            <option value="collected">Collected</option>
-            <option value="received">Received</option>
-            <option value="processing">Processing</option>
-            <option value="completed">Completed</option>
-          </select>
-        </div>
-
-        {/* Start Date */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Start Date
-          </label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-          />
-        </div>
-
-        {/* End Date */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            End Date
-          </label>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-          />
-        </div>
-
+      <div className="bg-slate-200 p-4 rounded-lg shadow-md flex flex-wrap justify-between items-center gap-4">
         {/* Patient Search */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -86,8 +42,53 @@ export default function ResultTrackerPage() {
             placeholder="Enter patient name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="mt-1 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+            className="mt-1 px-1 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
           />
+        </div>
+        {/* Status Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Status
+          </label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="mt-1 px-2 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+          >
+            <option value="">All</option>
+            <option value="collected">Collected</option>
+            <option value="received">Received</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        {/* Start Date */}
+        <div className="flex gap-4 mx-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Start Date
+            </label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="mt-1 px-2 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+            />
+          </div>
+
+          {/* End Date */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              End Date
+            </label>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="mt-1 px-2 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+            />
+          </div>
         </div>
       </div>
 

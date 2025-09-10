@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import getAllSamples  from '../services/sampleService';
+import { getAllSamples }  from '../services/sampleService';
 
 const SamplesPage = () => {
   const [samples, setSamples] = useState([]);

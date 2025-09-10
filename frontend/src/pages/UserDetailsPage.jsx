@@ -1,7 +1,7 @@
 // src/pages/UserDetails.jsx
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import  getUserById  from '../services/userService';
+import  { getUserById }  from '../services/userService';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const UserDetailsPage = () => {

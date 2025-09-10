@@ -31,7 +31,7 @@ const PatientsPage = () => {
 
   return (
     <div className="p-4">
-      <div className="bg-slate-200 p-4 rounded-lg shadow-md flex flex-wrap items-end gap-4">
+      <div className="bg-slate-200 px-8 py-4 rounded-lg shadow-md flex justify-between items-end gap-4">
         {/* Gender Filter */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -58,7 +58,7 @@ const PatientsPage = () => {
             placeholder="Enter patient name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="mt-1 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+            className="mt-1 pl-1 block w-64 rounded-md  border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
           />
         </div>
       </div>

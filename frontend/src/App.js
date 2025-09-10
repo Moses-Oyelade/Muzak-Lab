@@ -53,11 +53,13 @@ function App() {
           </Route>
 
           <Route element={<RoleProtectedRoute allowedRoles={['admin', 'collector']} />}>
-            <Route path="/patients" element={<PatientsPage />} />
-            <Route path="/patients/:id" element={<PatientDetailsPage />} />
-            <Route path="/patients/:id/edit" element={<EditPatientPage />} />
-            <Route path="/samples/create" element={<CreateSamplePage />} />
-            <Route path="/samples" element={<SamplesPage />} />
+            <Route element={<DashboardLayout />}>
+              <Route path="/patients" element={<PatientsPage />} />
+              <Route path="/patients/:id" element={<PatientDetailsPage />} />
+              <Route path="/patients/:id/edit" element={<EditPatientPage />} />
+              <Route path="/samples/create" element={<CreateSamplePage />} />
+              <Route path="/samples" element={<SamplesPage />} />
+            </Route>
           </Route>
           
           <Route path="*" element={<Navigate to='/unauthorized' replace />} />
