@@ -18,9 +18,9 @@ const HomePage = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
             to="/result-tracker"
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-700 transition"
           >
-            Get Result
+            Sample Result
           </Link>
           <Link
             to="/dashboard"

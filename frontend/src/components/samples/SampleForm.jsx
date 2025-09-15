@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { createSample } from "../services/sampleService";
+import { createSampleType } from "../../services/sampleService";
 
 const SampleForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
     name: "",
-    description: "",
   });
 
   const handleChange = (e) =>
@@ -12,8 +11,8 @@ const SampleForm = ({ onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createSample(formData);
-    setFormData({ name: "", description: "" });
+    await createSampleType(formData);
+    setFormData({ name: ""});
     if (onSuccess) onSuccess();
   };
 
@@ -28,13 +27,6 @@ const SampleForm = ({ onSuccess }) => {
         placeholder="Sample Type Name"
         className="w-full border p-2 rounded"
         required
-      />
-      <textarea
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        placeholder="Description"
-        className="w-full border p-2 rounded"
       />
       <button
         type="submit"

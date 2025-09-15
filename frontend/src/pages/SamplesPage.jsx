@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react';
-import { getAllSamples }  from '../services/sampleService';
+import { useEffect, useState } from "react";
+import { getAllSamples } from "../services/sampleService";
+import SampleList from "../components/samples/SampleList";
 
 const SamplesPage = () => {
   const [samples, setSamples] = useState([]);
+  const [filters, setFilters] = useState({ status: "" });
+
+  const fetchSamples = () =>
+    getAllSamples().then((data) => setSamples(data.results || []));
 
   useEffect(() => {
-    getAllSamples().then(data => setSamples(data.results));
+    fetchSamples();
   }, []);
 
   return (
-    <div>
+    <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Samples</h2>
-      <ul className="space-y-2">
-        {samples.map(sample => (
-          <li key={sample.id} className="p-2 border rounded">
-            {sample.sample_id} - {sample.test_type.name}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <div className="md:col-span-2">
+          <SampleList samples={samples} filters={filters} setFilters={setFilters} />
+        </div>
+      </div>
     </div>
   );
 };

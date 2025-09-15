@@ -17,7 +17,7 @@ export const createSample = async (sampleData) => {
 };
 
 export const updateSample = async (id, sampleData) => {
-  const response = await axiosClient.put(`/samples/${id}/`, sampleData);
+  const response = await axiosClient.patch(`/samples/${id}/`, sampleData);
   return response.data;
 };
 
@@ -26,10 +26,28 @@ export const deleteSample = async (id) => {
   return response.data;
 };
 
-// export default {
-//   getAllSamples,
-//   getSampleById,
-//   createSample,
-//   updateSample,
-//   deleteSample,
-// };
+// Sample Types
+export const getSampleTypes = async () => {
+  const res = await axiosClient.get('/sample-types');
+  return res.data;
+}
+
+export const createSampleType = async (sampleTypeDate) => {
+  const response = await axiosClient.post(`/sample-types/`, sampleTypeDate);
+  return response.data;
+}
+
+export const deleteSampleType = async (id) => {
+  const response = await axiosClient.delete(`/sample-types/${id}/`);
+  return response.data;
+}
+
+export const editSampleType = async (id, sampleTypeData) => {
+  const res = await axiosClient.patch(`/sample-types/${id}/`, sampleTypeData);
+  return res.data;
+}
+
+export const getSampleTypeById = async (id) => {
+  const res = await axiosClient.get(`sample-types/${id}`);
+  return res.data;
+}

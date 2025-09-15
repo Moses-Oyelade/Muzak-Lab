@@ -26,11 +26,3 @@ export const deleteUser = async (id) => {
   const response = await axiosClient.delete(`/users/${id}/`);
   return response.data;
 };
-
-// export default {
-//   getAllUsers,
-//   getUserById,
-//   createUser,
-//   updateUser,
-//   deleteUser,
-// };

@@ -1,9 +1,49 @@
-import React from 'react'
+import { useState } from "react";
+import { createTestType } from "../../services/testTypeService";
 
-export default function TestTypeForm() {
+const TestTypeForm = ({ onSuccess }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+  });
+
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await createTestType(formData);
+    setFormData({ name: "", description: "" });
+    if (onSuccess) onSuccess();
+  };
+
   return (
-    <div>
-      <h1>Add Test type</h1>
-    </div>
-  )
-}
+    <form onSubmit={handleSubmit} className="space-y-3 p-4 bg-white rounded shadow">
+      <h3 className="text-lg font-semibold">Add Test Type</h3>
+      <input
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Test Type Name"
+        className="w-full border p-2 rounded"
+        required
+      />
+      <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        placeholder="Description"
+        className="w-full border p-2 rounded"
+      />
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Save
+      </button>
+    </form>
+  );
+};
+
+export default TestTypeForm;

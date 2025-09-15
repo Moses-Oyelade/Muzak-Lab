@@ -8,6 +8,7 @@ import SamplesPage from './pages/SamplesPage';
 import PatientsPage from './pages/PatientsPage';
 import PatientDetailsPage from './pages/PatientDetailsPage';
 import TestTypesPage from './pages/TestTypePage';
+import SampleTypePage from './pages/SampleTypePage';
 import CreateSamplePage from "./pages/CreateSamplePage";
 import SampleDetailsPage from "./pages/SampleDetailsPage";
 import UserDetailsPage from './pages/UserDetailsPage';
@@ -21,9 +22,13 @@ import Header from './components/layout/Header';
 import ResultTrackerPage from './pages/ResultTrackerPage';
 import DashboardLayout from './components/layout/DashboardLayout';
 import EditPatientPage from './pages/EditPatientPage';
+import EditSamplePage from './pages/EditSamplePage';
+import useIdleLogout from './utils/useIdleLout';
 // import Nav from './components/layout/Nav';
 
 function App() {
+  useIdleLogout();
+
   return (
     <BrowserRouter>
     <AuthProvider>
@@ -49,8 +54,10 @@ function App() {
 
           <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician', 'collector']} />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/samples/:id" element={<SampleDetailsPage />} />
             <Route path="/test-types" element={<TestTypesPage />} />
+            <Route element={<DashboardLayout />}>
+              <Route path="/samples" element={<SamplesPage />} />
+            </Route>
           </Route>
 
           <Route element={<RoleProtectedRoute allowedRoles={['admin', 'collector']} />}>
@@ -59,7 +66,14 @@ function App() {
               <Route path="/patients/:id" element={<PatientDetailsPage />} />
               <Route path="/patients/:id/edit" element={<EditPatientPage />} />
               <Route path="/create-sample" element={<CreateSamplePage />} />
-              <Route path="/samples" element={<SamplesPage />} />
+            </Route>
+          </Route>
+
+          <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician']} />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="/samples/:id" element={<SampleDetailsPage />} />
+              <Route path="/samples/:id/edit" element={<EditSamplePage />} />
+              <Route path="/sample-types" element={<SampleTypePage />} />
             </Route>
           </Route>
           

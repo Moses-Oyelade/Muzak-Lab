@@ -1,17 +1,40 @@
 import { Link } from "react-router-dom";
-import StatusBadge from "./StatusBadges";
+import StatusBadge from "./StatusBadge";
 
 const SampleList = ({ samples, filters, setFilters }) => {
   const handleFilterChange = (e) =>
-    setFilters({ ...filters, [e.target.name]: e.target.value });
+    setFilters({ ...filters, query: e.target.value });
 
-  const filteredSamples = samples.filter((s) =>
-    filters.status ? s.status === filters.status : true
-  );
+  const filteredSamples = samples.filter((s) => {
+    const q = filters.query?.toLowerCase() || "";
+    return (
+      s.patient.name.toLowerCase().includes(q) || 
+      s.test_type.name.toLowerCase().includes(q) || 
+      s.sample_type.name.toLowerCase().includes(q) || 
+      s.status.toLowerCase().includes(q) || 
+      s.sample_id.toLowerCase().includes(q)
+    );
+  });
+  
+  const toTitleCase=(str)=>{
+    return str[0].toUpperCase() + str.slice(1);
+  };
 
+  
   return (
     <div>
       <div className="mb-4 flex flex-wrap gap-2">
+        <label className="block text-sm font-medium text-gray-700">
+          Search Sample
+        </label>
+        <input
+          type="text"
+          name="query"   // ✅ give it a name
+          placeholder="Search by ID, Name, Sample-type, or Test-type..."
+          value={filters.name}
+          onChange={handleFilterChange}   // ✅ pass event directly
+          className="mt-1 p-2 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+        />
         <select
           name="status"
           value={filters.status}
@@ -19,11 +42,18 @@ const SampleList = ({ samples, filters, setFilters }) => {
           className="border p-2 rounded"
         >
           <option value="">All Statuses</option>
-          <option value="collected">Collected</option>
-          <option value="received">Received</option>
-          <option value="processing">Processing</option>
-          <option value="completed">Completed</option>
+          <option value="Collected">Collected</option>
+          <option value="Received">Received</option>
+          <option value="Processing">Processing</option>
+          <option value="Completed">Completed</option>
         </select>
+        <div className="p-2">
+          <Link to={'/sample-types'}>
+            <button class>
+              Add Sample Type
+            </button>
+          </Link>
+        </div>
       </div>
 
       <ul className="space-y-2">
@@ -38,7 +68,7 @@ const SampleList = ({ samples, filters, setFilters }) => {
             >
               {sample.sample_id} - {sample.test_type.name}
             </Link>
-            <StatusBadge status={sample.status} />
+            <StatusBadge status={toTitleCase(sample.status)} />
           </li>
         ))}
       </ul>

@@ -6,6 +6,7 @@ import StatusBadge from "../components/samples/StatusBadge";
 const SampleDetailsPage = () => {
   const { id } = useParams();
   const [sample, setSample] = useState(null);
+  
 
   useEffect(() => {
     getSampleById(id).then(setSample);
@@ -22,7 +23,8 @@ const SampleDetailsPage = () => {
         <p><strong>Sample Type:</strong> {sample.sample_type?.name}</p>
         <p><strong>Test Type:</strong> {sample.test_type?.name}</p>
         <p><strong>Status:</strong> <StatusBadge status={sample.status} /></p>
-        <p><strong>Collected By:</strong> {sample.collected_by?.username || "N/A"}</p>
+        <p><strong>Collected By:</strong> {sample.collected_by?.username || "N/A"} - {`(${sample.collected_by?.role })`|| "(N/A)"}</p>
+        <p><strong>Updated By:</strong> {sample.updated_by?.username || "N/A"}</p>
       </div>
 
       <Link
