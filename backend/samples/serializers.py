@@ -23,7 +23,12 @@ class SampleTypeSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']        
 
 class SampleSerializer(serializers.ModelSerializer):
-    patient = PatientSerializer()  # nested patient create
+    patient = PatientSerializer(read_only=True)  # nested patient create
+    patient_id = serializers.PrimaryKeyRelatedField(
+        queryset=Patient.objects.all(),
+        source='patient',
+        write_only=True
+    )
     test_type = TestTypeSerializer(read_only=True)
     test_type_id = serializers.PrimaryKeyRelatedField(
         queryset=TestType.objects.all(),
@@ -43,25 +48,12 @@ class SampleSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['collected_by', 'updated_by']
 
-    def create(self, validated_data):
-        patient_data = validated_data.pop('patient')
-        patient, _ = Patient.objects.get_or_create(
-            identifier=patient_data['identifier'],
-            defaults=patient_data
-        )
-        validated_data['patient'] = patient
-        return super().create(validated_data)
+    # def create(self, validated_data):
+    #     patient_data = validated_data.pop('patient')
+    #     patient, _ = Patient.objects.get_or_create(
+    #         identifier=patient_data['identifier'],
+    #         defaults=patient_data
+    #     )
+    #     validated_data['patient'] = patient
+    #     return super().create(validated_data)
 
-
-
-
-# class SampleSerializer(serializers.ModelSerializer):
-#     history = StatusHistorySerializer(many=True, read_only=True)
-#     patient = PatientSerializer(read_only=True)
-#     patient_id = serializers.PrimaryKeyRelatedField(
-#         queryset=Patient.objects.all(), source='patient', write_only=True
-#     )
-
-#     class Meta:
-#         model = Sample
-#         fields = '__all__'
