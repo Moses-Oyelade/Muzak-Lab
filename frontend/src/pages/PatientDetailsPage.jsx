@@ -42,7 +42,7 @@ const PatientDetailsPage = () => {
       <p><strong>Gender:</strong> {patient.gender}</p>
       <p><strong>Phone:</strong> {patient.phone}</p>
       <p><strong>Email:</strong> {patient.email}</p>
-      <p><strong>Created:</strong> {new Date(patient.createdAt).toLocaleDateString()}</p>
+      <p><strong>Created:</strong> {new Date(patient.created_at).toLocaleDateString()}</p>
 
       {user?.role === "admin" && (
         <div className="mt-4 flex gap-4">

@@ -20,7 +20,7 @@ const patientService = {
   },
 
   updatePatient: async (id, patientData) => {
-    const response = await axiosClient.put(`/patients/${id}/`, patientData);
+    const response = await axiosClient.patch(`/patients/${id}/`, patientData);
     return response.data;
   },
 

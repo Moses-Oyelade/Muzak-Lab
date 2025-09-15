@@ -11,13 +11,18 @@ const EditPatientPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [patient, setPatient] = useState(null);
-  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [formData, setFormData] = useState({ 
+    name: "",
+    gender: "",
+    phone: "", 
+    email: "" 
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     patientServices.getPatientById(id).then((data) => {
       setPatient(data);
-      setFormData({ name: data.name, email: data.email });
+      setFormData({ name: data.name, gender: data.gender, phone: data.phone, email: data.email,  });
       setLoading(false);
     });
   }, [id]);
@@ -46,6 +51,28 @@ const EditPatientPage = () => {
             type="text"
             name="name"
             value={formData.name}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+            required
+          />
+        </div>
+        <div>
+          <label className="block font-semibold">Gender</label>
+          <input
+            type="text"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+            required
+          />
+        </div>
+        <div>
+          <label className="block font-semibold">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
             onChange={handleChange}
             className="border p-2 rounded w-full"
             required

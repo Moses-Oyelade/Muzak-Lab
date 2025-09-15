@@ -15,6 +15,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from './pages/HomePage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
 
+
 import UsersPage from './pages/UsersPage';
 import Header from './components/layout/Header';
 import ResultTrackerPage from './pages/ResultTrackerPage';
@@ -57,7 +58,7 @@ function App() {
               <Route path="/patients" element={<PatientsPage />} />
               <Route path="/patients/:id" element={<PatientDetailsPage />} />
               <Route path="/patients/:id/edit" element={<EditPatientPage />} />
-              <Route path="/samples/create" element={<CreateSamplePage />} />
+              <Route path="/create-sample" element={<CreateSamplePage />} />
               <Route path="/samples" element={<SamplesPage />} />
             </Route>
           </Route>

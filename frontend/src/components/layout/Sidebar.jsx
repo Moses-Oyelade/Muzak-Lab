@@ -10,9 +10,10 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
+    { to: "/", label: "Home" },
     { to: "/dashboard", label: "Dashboard" },
     { to: "/samples", label: "Samples" },
-    { to: "/samples/create", label: "Create Sample" },
+    { to: "/create-sample", label: "Create Sample" },
     { to: "/patients", label: "Patients" },
     { to: "/test-types", label: "Test Types" },
     ...(role === "admin" ? [{ to: "/users", label: "Users" }] : []),
@@ -23,7 +24,7 @@ export default function Sidebar() {
       {/* Toggle button for mobile */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`md:hidden ${isOpen ? "fixed top-4 left-44" :"fixed top-6 left-4"} z-50 p-2 bg-gray-400 text-white rounded-lg`}
+        className={`md:hidden ${isOpen ? "fixed top-4 left-44" :"fixed top-6 left-8"} z-50 p-2 bg-gray-400 text-white rounded-lg`}
       >
         {isOpen ? <X size={24} /> : <Menu size={28} />}
       </button>

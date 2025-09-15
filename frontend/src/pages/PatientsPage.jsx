@@ -30,7 +30,7 @@ const PatientsPage = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="p-4">
+    <div>
       <div className="bg-slate-200 px-8 py-4 rounded-lg shadow-md flex justify-between items-end gap-4">
         {/* Gender Filter */}
         <div>

@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <>
     {user && (
-        <nav className="bg-blue-800 text-white p-4 flex justify-between items-center">
+        <nav className="bg-blue-800 text-white px-8 py-4 flex justify-between items-center">
           <div>
             { location.pathname === '/' ? (
               <div className="font-bold text-2xl">🔬Home</div>

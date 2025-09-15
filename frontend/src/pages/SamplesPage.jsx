@@ -5,7 +5,7 @@ const SamplesPage = () => {
   const [samples, setSamples] = useState([]);
 
   useEffect(() => {
-    getAllSamples().then(res => setSamples(res.data));
+    getAllSamples().then(data => setSamples(data.results));
   }, []);
 
   return (
