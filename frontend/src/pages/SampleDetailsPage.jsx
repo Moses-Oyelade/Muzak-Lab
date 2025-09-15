@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getSampleById } from "../services/sampleService";
 import StatusBadge from "../components/samples/StatusBadge";
+import { toTitleCase } from "../components/samples/TitleCase";
 
 const SampleDetailsPage = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const SampleDetailsPage = () => {
         <p><strong>Patient:</strong> {sample.patient?.name}</p>
         <p><strong>Sample Type:</strong> {sample.sample_type?.name}</p>
         <p><strong>Test Type:</strong> {sample.test_type?.name}</p>
-        <p><strong>Status:</strong> <StatusBadge status={sample.status} /></p>
+        <p><strong>Status:</strong> <StatusBadge status={toTitleCase(sample.status)} /></p>
         <p><strong>Collected By:</strong> {sample.collected_by?.username || "N/A"} - {`(${sample.collected_by?.role })`|| "(N/A)"}</p>
         <p><strong>Updated By:</strong> {sample.updated_by?.username || "N/A"}</p>
       </div>

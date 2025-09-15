@@ -1,8 +1,8 @@
 // src/services/userService.js
 import axiosClient from '../utils/axiosClient';
 
-export const getAllSamples = async () => {
-  const response = await axiosClient.get('/samples/');
+export const getAllSamples = async (params) => {
+  const response = await axiosClient.get(`/samples?${params.toString()}`);
   return response.data;
 };
 

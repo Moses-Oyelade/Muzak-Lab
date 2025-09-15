@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../utils/axiosClient";
+import { toTitleCase } from "../components/samples/TitleCase";
+import StatusBadge from "../components/samples/StatusBadge";
 
 export default function ResultTrackerPage() {
   const [samples, setSamples] = useState([]);
@@ -111,7 +113,7 @@ export default function ResultTrackerPage() {
                 <p className="text-sm text-gray-600">
                   Test: {sample.test_type?.name || "N/A"}
                 </p>
-                <p
+                {/* <p
                   className={`inline-block mt-2 px-2 py-1 rounded-full text-xs font-medium ${
                     sample.status === "completed"
                       ? "bg-green-100 text-green-800"
@@ -123,7 +125,8 @@ export default function ResultTrackerPage() {
                   }`}
                 >
                   {sample.status}
-                </p>
+                </p> */}
+                <StatusBadge status={toTitleCase(sample.status)} />
                 <p className="text-xs text-gray-500 mt-2">
                   Updated:{" "}
                   {new Date(sample.updated_at).toLocaleDateString("en-US")}

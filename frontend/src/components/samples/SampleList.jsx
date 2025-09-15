@@ -1,26 +1,36 @@
 import { Link } from "react-router-dom";
 import StatusBadge from "./StatusBadge";
+import { toTitleCase } from "./TitleCase";
 
 const SampleList = ({ samples, filters, setFilters }) => {
-  const handleFilterChange = (e) =>
-    setFilters({ ...filters, query: e.target.value });
+
+  
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+  }
 
   const filteredSamples = samples.filter((s) => {
     const q = filters.query?.toLowerCase() || "";
-    return (
+
+    const matchesQuery =
       s.patient.name.toLowerCase().includes(q) || 
       s.test_type.name.toLowerCase().includes(q) || 
       s.sample_type.name.toLowerCase().includes(q) || 
       s.status.toLowerCase().includes(q) || 
-      s.sample_id.toLowerCase().includes(q)
+      s.sample_id.toLowerCase().includes(q);
+
+    const matchesSatus = 
+      !filters.satus || s.status.toLowerCase() === filters.status.toLowerCase();
+    
+      return (
+        matchesQuery && matchesSatus
     );
   });
   
-  const toTitleCase=(str)=>{
-    return str[0].toUpperCase() + str.slice(1);
-  };
-
   
+
+
   return (
     <div>
       <div className="mb-4 flex flex-wrap gap-2">
@@ -72,6 +82,7 @@ const SampleList = ({ samples, filters, setFilters }) => {
           </li>
         ))}
       </ul>
+      
     </div>
   );
 };
