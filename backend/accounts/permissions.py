@@ -6,9 +6,10 @@ class IsAdmin(BasePermission):
 
 class IsTechnician(BasePermission):
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == 'technician'
+        return request.user.is_authenticated and request.user.role in ['technician', 'admin']
 
 class IsCollector(BasePermission):
     """Allow access only to collector role"""
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == 'collector'
+        return request.user.is_authenticated and request.user.role in ['collector', 'admin']
+    

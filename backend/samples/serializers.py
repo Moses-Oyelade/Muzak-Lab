@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Sample, StatusHistory, Patient, TestType, SampleType
+from accounts.serializers import UserSerializer
+from accounts.models import User
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,6 +44,22 @@ class SampleSerializer(serializers.ModelSerializer):
         write_only=True,
         source='sample_type'
     )
+    
+    collected_by = UserSerializer(read_only=True)
+    collected_by_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        write_only=True,
+        source='collected_by'
+    )
+    
+    updated_by = UserSerializer(read_only=True)
+    updated_by_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        write_only=True,
+        source='upddated_by'
+    )
+    
+    
 
     class Meta:
         model = Sample

@@ -76,7 +76,7 @@ def seed_sample_types():
 
 
 def seed_samples(patients, test_types, sample_types, n=10):
-    statuses = ["Collected", "Received", "Processing", "Completed"]
+    statuses = ["collected", "received", "processing", "completed"]
 
     for _ in range(n):
         patient = random.choice(patients)

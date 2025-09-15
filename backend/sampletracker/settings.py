@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,6 +140,13 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=8),      # access token valid 8 hours
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # refresh token valid 7 days
+    'ROTATE_REFRESH_TOKENS': True,                   # automatically rotate refresh token
+    'BLACKLIST_AFTER_ROTATION': True,               # blacklist old refresh tokens
 }
 
 CORS_ALLOWED_ORIGINS = [
