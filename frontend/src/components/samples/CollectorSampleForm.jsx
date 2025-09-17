@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../utils/axiosClient";
+import { useNavigate } from "react-router-dom";
 
 export default function CollectorSampleForm() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     sample_id: "",
     name: "",
@@ -49,7 +51,13 @@ export default function CollectorSampleForm() {
       const results = patientRes.data.results || patientRes.data;
 
       if (Array.isArray(results) && results.length > 0) {
+        if (window.confirm(
+          `User with this ID: ${form.identifier} already exists, 
+          Kindly input the correct ID or proceed 
+          with the existing User`
+        ))
         patientId = results[0].id; // existing
+
       } else {
         // Create patient
         const newPatient = await axiosClient.post("/patients/", {
@@ -74,10 +82,9 @@ export default function CollectorSampleForm() {
       });
       
       console.log("sample form:" ,form)
-      alert("Sample request created successfully!");
+      alert(`Sample ${form.sample_id} request created successfully!`);
+      navigate('/samples')
     } catch (err) {
-      // console.error(err);
-      // alert("Error creating sample request");
       if (err.response) {
         console.error("Backend error:", err.response.data);
         alert(`Error: ${JSON.stringify(err.response.data)}`);

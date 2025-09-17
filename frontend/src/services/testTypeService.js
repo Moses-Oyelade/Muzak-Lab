@@ -1,3 +1,5 @@
+import axiosClient from "../utils/axiosClient";
+
 export const getTestTypes = async () => {
   const res = await axiosClient.get('/test-types');
   return res.data;

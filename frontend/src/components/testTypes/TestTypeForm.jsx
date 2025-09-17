@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { createTestType } from "../../services/testTypeService";
+import { Link, useNavigate } from "react-router-dom";
 
 const TestTypeForm = ({ onSuccess }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -16,6 +19,11 @@ const TestTypeForm = ({ onSuccess }) => {
     setFormData({ name: "", description: "" });
     if (onSuccess) onSuccess();
   };
+
+  const handlePageChanging = () => {
+    navigate('/samples')
+  }
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3 p-4 bg-white rounded shadow">
@@ -36,12 +44,23 @@ const TestTypeForm = ({ onSuccess }) => {
         placeholder="Description"
         className="w-full border p-2 rounded"
       />
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Save
-      </button>
+      <div className="flex justify-between px-2">
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Save
+        </button>
+        <Link
+          type="button"
+          onClick={handlePageChanging }
+          className="bg-gray-300 text-white px-4 py-2 rounded hover:bg-gray-400"
+        >
+          Cancel
+        </Link>
+        
+      </div>
+      
     </form>
   );
 };

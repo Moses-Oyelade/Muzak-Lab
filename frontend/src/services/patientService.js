@@ -3,9 +3,10 @@ import axiosClient from '../utils/axiosClient';
 
 
 const patientService = {
+  
   getAllPatients: async (params) => {
     // const query = new URLSearchParams(params).toString();
-    const res = await axiosClient.get(`/patients?${params.toString()}`);
+    const res = await axiosClient.get(`/patients/?${params.toString()}`);
     return res.data;
   },
 
@@ -15,7 +16,7 @@ const patientService = {
   },
 
   createPatient: async (patientData) => {
-    const response = await axiosClient.post('/Patients/', patientData);
+    const response = await axiosClient.post('/patients/', patientData);
     return response.data;
   },
 

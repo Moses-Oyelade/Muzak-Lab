@@ -17,10 +17,15 @@ const SampleTypePage = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Samples</h2>
+      <h2 className="text-xl font-bold mb-4">Samples Types</h2>
       <div className="grid md:grid-cols-3 gap-4">
         <div className="md:col-span-2">
-          <TypeSample samples={sampleTypes} filters={filters} setFilters={setFilters} />
+          <TypeSample 
+            samples={sampleTypes} 
+            filters={filters} 
+            setFilters={setFilters} 
+            setSamples={setSampleTypes}
+          />
         </div>
         <div>
           <SampleForm onSuccess={fetchSampleTypes} />

@@ -21,7 +21,7 @@ const SampleList = ({ samples, filters, setFilters }) => {
       s.sample_id.toLowerCase().includes(q);
 
     const matchesSatus = 
-      !filters.satus || s.status.toLowerCase() === filters.status.toLowerCase();
+      !filters.status || s.status.toLowerCase() === filters.status.toLowerCase();
     
       return (
         matchesQuery && matchesSatus
@@ -33,44 +33,46 @@ const SampleList = ({ samples, filters, setFilters }) => {
 
   return (
     <div>
-      <div className="mb-4 flex flex-wrap gap-2">
-        <label className="block text-sm font-medium text-gray-700">
-          Search Sample
-        </label>
-        <input
-          type="text"
-          name="query"   // ✅ give it a name
-          placeholder="Search by ID, Name, Sample-type, or Test-type..."
-          value={filters.name}
-          onChange={handleFilterChange}   // ✅ pass event directly
-          className="mt-1 p-2 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-        />
-        <select
-          name="status"
-          value={filters.status}
-          onChange={handleFilterChange}
-          className="border p-2 rounded"
-        >
-          <option value="">All Statuses</option>
-          <option value="Collected">Collected</option>
-          <option value="Received">Received</option>
-          <option value="Processing">Processing</option>
-          <option value="Completed">Completed</option>
-        </select>
-        <div className="p-2">
+      <div className="p-4 flex justify-between">
+        <div className="flex flex-wrap gap-2">
+          <label className="block p-1 text-base font-medium text-gray-700">
+            Search Sample
+          </label>
+          <input
+            type="text"
+            name="query"   // ✅ give it a name
+            placeholder="Search by ID, Name, Sample-type, or Test-type..."
+            value={filters.query || ""}
+            onChange={handleFilterChange}   // ✅ pass event directly
+            className="mt-1 p-2 block w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+          />
+          <select
+            name="status"
+            value={filters.status}
+            onChange={handleFilterChange}
+            className="border p-2 rounded"
+          >
+            <option value="">All Statuses</option>
+            <option value="Collected">Collected</option>
+            <option value="Received">Received</option>
+            <option value="Processing">Processing</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div>
           <Link to={'/sample-types'}>
-            <button class>
+            <button className="border rounded-md text-white p-2 bg-blue-500 hover:bg-blue-700">
               Add Sample Type
             </button>
           </Link>
         </div>
       </div>
 
-      <ul className="space-y-2">
+      <ul className="space-y-1">
         {filteredSamples.map((sample) => (
           <li
             key={sample.id}
-            className="p-3 border rounded bg-white flex justify-between items-center"
+            className="px-4 py-2 border rounded bg-white flex justify-between items-center"
           >
             <Link
               to={`/samples/${sample.id}`}

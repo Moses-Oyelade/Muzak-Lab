@@ -28,12 +28,20 @@ const SampleDetailsPage = () => {
         <p><strong>Updated By:</strong> {sample.updated_by?.username || "N/A"}</p>
       </div>
 
-      <Link
-        to={`/samples/${id}/edit`}
-        className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Edit Sample
-      </Link>
+      <div className="flex justify-between px-2">
+        <Link
+          to={`/samples/${id}/edit`}
+          className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Edit Sample
+        </Link>
+        <Link
+          to={`/samples/`}
+          className="mt-4 inline-block bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+        >
+          Cancel
+        </Link>
+      </div>
     </div>
   );
 };

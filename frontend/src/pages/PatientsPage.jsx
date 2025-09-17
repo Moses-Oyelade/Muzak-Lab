@@ -33,53 +33,63 @@ const PatientsPage = () => {
     <div>
       <div className="bg-slate-200 px-8 py-4 rounded-lg shadow-md flex justify-between items-end gap-4">
         {/* Gender Filter */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Gender
-          </label>
-          <select
-            value={genderFilter}
-            onChange={(e) => setGenderFilter(e.target.value)}
-            className="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-          >
-            <option value="">All</option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-            <option value="other">Other</option>
-          </select>
+        <div className='flex flex-wrap gap-4'>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Gender
+            </label>
+            <select
+              value={genderFilter}
+              onChange={(e) => setGenderFilter(e.target.value)}
+              className="mt-1 mr-2 p-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+            >
+              <option value="">All</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+            {/* Patient Search */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Search Patient
+            </label>
+            <input
+              type="text"
+              placeholder="Enter patient name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="mt-1 p-1 block w-56 rounded-md  border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+            />
+          </div>
         </div>
-        {/* Patient Search */}
+
+        {/* Patient registration */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Search Patient
-          </label>
-          <input
-            type="text"
-            placeholder="Enter patient name..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="mt-1 pl-1 block w-64 rounded-md  border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-          />
+          <Link to={'/create-patient'} >
+            <button className='block bg-blue-600 text-white rounded p-2 hover:bg-blue-700'> Register Patient</button>
+          </Link>
         </div>
       </div>
 
       <div>
-        <h2 className="text-xl font-bold mb-4">Patients</h2>
+        <h2 className="text-xl font-bold p-4">Patients</h2>
         {patients.length === 0 ? (
           <p>No patients found.</p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {patients.map((patient) => (
               <li
                 key={patient.id}
-                className="flex justify-between items-center bg-gray-100 p-3 rounded"
+                className="flex justify-between items-center border bg-white p-2 rounded"
               >
                 <span>
-                  <strong>{patient.name}</strong> ({patient.email})
+                  <strong>{patient.name}</strong> - {patient.identifier}
                 </span>
                 <Link
                   to={`/patients/${patient.id}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-700 hover:underline"
                 >
                   View Details
                 </Link>
