@@ -46,18 +46,7 @@ class SampleSerializer(serializers.ModelSerializer):
     )
     
     collected_by = UserSerializer(read_only=True)
-    collected_by_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        write_only=True,
-        source='collected_by'
-    )
-    
     updated_by = UserSerializer(read_only=True)
-    updated_by_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        write_only=True,
-        source='upddated_by'
-    )
     
     
 
