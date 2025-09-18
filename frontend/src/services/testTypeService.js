@@ -15,7 +15,7 @@ export const deleteTestType = async (id) => {
   return response.data;
 }
 
-export const editTestType = async (id, testData) => {
+export const updateTestType = async (id, testData) => {
   const res = await axiosClient.patch(`/test-types/${id}/`, testData);
   return res.data;
 }

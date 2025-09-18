@@ -3,17 +3,21 @@ import { useParams, Link } from "react-router-dom";
 import { getSampleById } from "../services/sampleService";
 import StatusBadge from "../components/samples/StatusBadge";
 import { toTitleCase } from "../components/samples/TitleCase";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const SampleDetailsPage = () => {
   const { id } = useParams();
   const [sample, setSample] = useState(null);
+  const [loading, setLoading] = useState(true);
   
 
   useEffect(() => {
     getSampleById(id).then(setSample);
+    setLoading(false);
   }, [id]);
 
-  if (!sample) return <p>Loading...</p>;
+  if (!sample) return <p>Sample not found</p>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="p-4">

@@ -1,24 +1,46 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSampleById, updateSample, deleteSample } from "../services/sampleService";
+import { getSampleById, updateSample, deleteSample, } from "../services/sampleService";
+import { getTestTypes } from "../services/testTypeService";
+import LoadingSpinner from "../components/LoadingSpinner";
+
 
 const EditSamplePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [sample, setSample] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [testTypes, setTestTypes] = useState([]);
+  const [formData, setFormData] = useState({
+    sample_id: "",
+    status: "",
+    sample_type: "",
+    test_type_id: "",
+  });
 
   useEffect(() => {
-    getSampleById(id).then(setSample);
+    getSampleById(id).then(setFormData);
+    setLoading(false);
   }, [id]);
 
+  const fetchTestTypes = () =>
+      getTestTypes().then((data) => setTestTypes(data.results || []));
+  
+    useEffect(() =>{
+      fetchTestTypes();
+    }, []);
+
+
+
   const handleChange = (e) =>
-    setSample({ ...sample, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateSample(id, sample);
+    await updateSample(id, formData);
     navigate(`/samples/${id}`);
   };
+
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this sample?")) {
@@ -27,7 +49,8 @@ const EditSamplePage = () => {
     }
   };
 
-  if (!sample) return <p>Loading...</p>;
+  if (!formData) return <p className="p-4">Sample not found</p>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="p-4">
@@ -36,14 +59,14 @@ const EditSamplePage = () => {
         <input
           type="text"
           name="sample_id"
-          value={sample.sample_id}
+          value={formData.sample_id}
           onChange={handleChange}
           className="w-full border p-2 rounded"
           readOnly
         />
         <select
           name="status"
-          value={sample.status}
+          value={formData.status}
           onChange={handleChange}
           className="w-full border p-2 rounded"
         >
@@ -52,6 +75,25 @@ const EditSamplePage = () => {
           <option value="processing">Processing</option>
           <option value="completed">Completed</option>
         </select>
+        <input
+          type="text"
+          name="sample-type"
+          value={formData.sample_type?.name}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          readOnly
+        />
+        <select
+          name="test_type_id"
+          value={formData.test_type_id}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        >
+          {testTypes.map((tt) => (
+            <option key={tt.id} value={tt.id}>{tt.name}</option>
+          ))}
+        </select>
+        
         <div className="flex gap-2">
           <button
             type="submit"

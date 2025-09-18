@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { createTestType } from "../../services/testTypeService";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const TestTypeForm = ({ onSuccess }) => {
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -20,9 +18,6 @@ const TestTypeForm = ({ onSuccess }) => {
     if (onSuccess) onSuccess();
   };
 
-  const handlePageChanging = () => {
-    navigate('/samples')
-  }
 
 
   return (
@@ -52,8 +47,8 @@ const TestTypeForm = ({ onSuccess }) => {
           Save
         </button>
         <Link
-          type="button"
-          onClick={handlePageChanging }
+          // type="button"
+          to={'/samples/'}
           className="bg-gray-300 text-white px-4 py-2 rounded hover:bg-gray-400"
         >
           Cancel
