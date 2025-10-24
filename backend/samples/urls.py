@@ -2,7 +2,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import SampleTypeViewSet, SampleViewSet, StatusHistoryViewSet, PatientViewSet, TestTypeViewSet
+from .views import SampleTypeViewSet, SampleViewSet, StatusHistoryViewSet, PatientViewSet, TestTypeViewSet, report_summary
 
 
 router = DefaultRouter()
@@ -14,4 +14,5 @@ router.register(r'sample-types', SampleTypeViewSet, basename='sample-type')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('report-summary/', report_summary, name='report-summary')
 ]

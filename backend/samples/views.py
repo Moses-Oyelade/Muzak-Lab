@@ -1,6 +1,9 @@
 # backend/samples/views.py
 
 from rest_framework import viewsets, permissions, filters
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from django.utils import timezone
 from accounts.permissions import IsCollector, IsTechnician
 from .models import Sample, SampleType, StatusHistory, Patient, TestType
 from .serializers import SampleSerializer, StatusHistorySerializer, PatientSerializer, TestTypeSerializer, SampleTypeSerializer
@@ -83,3 +86,24 @@ class SampleTypeViewSet(viewsets.ModelViewSet):
     queryset = SampleType.objects.all()
     serializer_class = SampleTypeSerializer
     permission_classes = [permissions.IsAuthenticated] 
+    
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def report_summary(request):
+    total_samples = Sample.objects.count()
+    completed = Sample.objects.filter(status = 'completed').count()
+    processing = Sample.objects.filter(status = 'processing').count()
+    received = Sample.objects.filter(status = 'received').count()
+    collected = Sample.objects.filter(status = 'collected').count()
+    today = timezone.now().date()
+    collected_today = Sample.objects.filter(collection_date=today).count()
+    
+    data = {
+        'total_samples': total_samples,
+        'completed': completed,
+        'processing': processing,
+        'received': received,
+        'collected': collected,
+        'collected_today': collected_today,
+    }
+    return Response(data)
