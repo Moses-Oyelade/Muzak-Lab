@@ -1,14 +1,54 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { getReportSummary } from "../services/reportService"
+import LoadingSpinner from "../components/LoadingSpinner";
+import { toTitleCase } from "../components/samples/TitleCase";
+import ReportSummary from "../components/ReportSummary";
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [summary, setSummary] = useState(null);
 
   const role = user?.role?.toLowerCase(); // normalize
+  const UserRole = toTitleCase(role)
+
+  // Calling the report summary
+  useEffect(() => {
+      const fetchSummary = async () => {
+        try {
+          const data = await getReportSummary();
+          console.log(data)
+
+          const formatted = {
+            totalSamples: data?.total_samples ?? 0,
+            completed: data?.completed ?? 0,
+            processingSamples: data?.pocessing ?? 0,
+            receivedSamples: data?.received ?? 0,
+            collectedSamples: data?.collected ?? 0,
+            collectedToday: data?.collected_today ?? 0,
+          };
+          setSummary(formatted);
+        } catch (error) {
+          console.error("Failed to fetch report summary:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchSummary();
+    }, []);
+
+
+  if (loading) {
+    return (
+      <LoadingSpinner />
+    );
+  }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6">Dashboard (<span className="text-gray-500">{`${UserRole}`}</span>)</h1>
 
       {/* Admin view */}
       {role === "admin" && (
@@ -16,8 +56,9 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card title="Users" value="12" description="Active system users" />
             <Card title="Patients" value="124" description="Total registered" />
-            <Card title="Reports" value="32" description="Generated this month" />
           </div>
+
+          <ReportSummary summary = {summary}/> {/* Report Summary Chat */}
 
           <Section title="System Overview">
             <ul className="space-y-2">
@@ -35,6 +76,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Card title="Patients" value="124" description="Assigned to you" />
             <Card title="Samples" value="58" description="Collected this week" />
+            <Card title="Completed Samples" value={summary.completed} description="Completed samples" />
           </div>
 
           <Section title="Pending Collections">
@@ -53,6 +95,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Card title="Samples" value="58" description="Awaiting analysis" />
             <Card title="Reports" value="18" description="Completed today" />
+            <Card title="Completed Samples" value={summary.completed} description="Completed samples" />
           </div>
 
           <Section title="Lab Queue">

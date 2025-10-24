@@ -22,7 +22,12 @@ const EditPatientPage = () => {
   useEffect(() => {
     patientServices.getPatientById(id).then((data) => {
       setPatient(data);
-      setFormData({ name: data.name, gender: data.gender, phone: data.phone, email: data.email,  });
+      setFormData({ 
+        name: data.name, 
+        gender: data.gender, 
+        phone: data.phone, 
+        email: data.email,  
+      });
       setLoading(false);
     });
   }, [id]);
@@ -42,11 +47,11 @@ const EditPatientPage = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Edit Patient</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-semibold">Name</label>
+          <label className="block mx-2 font-semibold">Name</label>
           <input
             type="text"
             name="name"
@@ -57,7 +62,7 @@ const EditPatientPage = () => {
           />
         </div>
         <div>
-          <label className="block font-semibold">Gender</label>
+          <label className="block mx-2 font-semibold">Gender</label>
           <input
             type="text"
             name="gender"
@@ -68,7 +73,7 @@ const EditPatientPage = () => {
           />
         </div>
         <div>
-          <label className="block font-semibold">Phone</label>
+          <label className="block mx-2 font-semibold">Phone</label>
           <input
             type="text"
             name="phone"
@@ -79,7 +84,7 @@ const EditPatientPage = () => {
           />
         </div>
         <div>
-          <label className="block font-semibold">Email</label>
+          <label className="block mx-2 font-semibold">Email</label>
           <input
             type="email"
             name="email"

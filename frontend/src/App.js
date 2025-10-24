@@ -12,6 +12,7 @@ import SampleTypePage from './pages/SampleTypePage';
 import CreateSamplePage from "./pages/CreateSamplePage";
 import SampleDetailsPage from "./pages/SampleDetailsPage";
 import UserDetailsPage from './pages/UserDetailsPage';
+import CreateUserPage from './pages/CreateUserPage';
 import LoginPage from "./pages/LoginPage";
 import HomePage from './pages/HomePage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
@@ -25,6 +26,7 @@ import EditPatientPage from './pages/EditPatientPage';
 import EditSamplePage from './pages/EditSamplePage';
 import useIdleLogout from './utils/useIdleLout';
 import CreatePatient from './pages/CreatePatient';
+import EditUserPage from './pages/EditUserPage';
 // import Nav from './components/layout/Nav';
 
 function App() {
@@ -50,14 +52,16 @@ function App() {
             <Route element={<DashboardLayout />}>
               <Route path="/users" element={<UsersPage />} />
               <Route path='/create-patient' element={<CreatePatient />} />
+              <Route path="/users/:id" element={<UserDetailsPage />} />
+              <Route path='/users/:id/edit' element={<EditUserPage />} />
+              <Route path='/create-user' element={<CreateUserPage />} />
             </Route>
-            <Route path="/users/:id" element={<UserDetailsPage />} />
           </Route>
 
           <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician', 'collector']} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route element={<DashboardLayout />}>
-            <Route path="/test-types" element={<TestTypesPage />} />
+              <Route path="/test-types" element={<TestTypesPage />} />
               <Route path="/samples" element={<SamplesPage />} />
             </Route>
           </Route>

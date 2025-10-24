@@ -13,12 +13,12 @@ export const getUserById = async (id) => {
 };
 
 export const createUser = async (userData) => {
-  const response = await axiosClient.post('/users/', userData);
+  const response = await axiosClient.post('/users/create/', userData);
   return response.data;
 };
 
 export const updateUser = async (id, userData) => {
-  const response = await axiosClient.put(`/users/${id}/`, userData);
+  const response = await axiosClient.patch(`/users/${id}/`, userData);
   return response.data;
 };
 

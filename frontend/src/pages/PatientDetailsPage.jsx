@@ -23,7 +23,7 @@ const PatientDetailsPage = () => {
   console.log(user)
 
   if (loading) return <LoadingSpinner />;
-  if (!patient) return <p className='p-4'>Patient not found!</p>;
+  if (!patient) return <p className='p-4 text-red-500'>Patient not found!</p>;
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this patient?")) {
@@ -34,15 +34,17 @@ const PatientDetailsPage = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-xl font-bold mb-2">Patient</h2>
-      <p><strong>Name:</strong> {patient.name}</p>
-      <p><strong>ID:</strong> {patient.identifier}</p>
-      <p><strong>DOB:</strong> {patient.date_of_birth}</p>
-      <p><strong>Gender:</strong> {patient.gender}</p>
-      <p><strong>Phone:</strong> {patient.phone}</p>
-      <p><strong>Email:</strong> {patient.email}</p>
-      <p><strong>Created:</strong> {new Date(patient.created_at).toLocaleDateString()}</p>
+      <div className="bg-white shadow p-4 rounded space-y-2">
+        <p><strong>Name:</strong> {patient.name}</p>
+        <p><strong>ID:</strong> {patient.identifier}</p>
+        <p><strong>DOB:</strong> {patient.date_of_birth}</p>
+        <p><strong>Gender:</strong> {patient.gender}</p>
+        <p><strong>Phone:</strong> {patient.phone}</p>
+        <p><strong>Email:</strong> {patient.email}</p>
+        <p><strong>Created:</strong> {new Date(patient.created_at).toLocaleDateString()}</p>
+      </div>
 
       {user?.role === "admin" && (
         <div className="mt-4 flex gap-4">

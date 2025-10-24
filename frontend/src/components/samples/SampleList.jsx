@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import StatusBadge from "./StatusBadge";
 import { toTitleCase } from "./TitleCase";
+import { useAuth } from "../../context/AuthContext";
 
 const SampleList = ({ samples, filters, setFilters }) => {
-
+  const { user } = useAuth();
+  const role = user.role;
   
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -74,12 +76,18 @@ const SampleList = ({ samples, filters, setFilters }) => {
             key={sample.id}
             className="px-4 py-2 border rounded bg-white flex justify-between items-center"
           >
-            <Link
-              to={`/samples/${sample.id}`}
-              className="font-medium text-blue-600 hover:underline"
-            >
-              {sample.sample_id} - {sample.test_type.name}
-            </Link>
+            { role === ('admin' && 'technician') ? 
+              <Link
+                to={`/samples/${sample.id}`}
+                className="font-medium text-blue-600 hover:underline"
+              >
+                {sample.sample_id} - {sample.sample_type.name} ({sample.test_type.name})
+              </Link>
+                :
+              <span className="font-medium text-blue-600 ">
+                {sample.sample_id} - {sample.sample_type.name} ({sample.test_type.name})
+              </span>
+            }
             <StatusBadge status={toTitleCase(sample.status)} />
           </li>
         ))}

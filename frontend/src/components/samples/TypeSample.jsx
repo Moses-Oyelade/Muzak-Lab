@@ -1,7 +1,11 @@
 import React from "react";
 import { deleteSampleType } from "../../services/sampleService";
+import { useAuth } from "../../context/AuthContext";
 
 const TypeSample = ({ samples, filters, setFilters, setSamples }) => {
+  const { user } = useAuth();
+  const role = user?.role?.toLowerCase();
+  
 
   const handleFilterChange = (e) =>
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -11,7 +15,7 @@ const TypeSample = ({ samples, filters, setFilters, setSamples }) => {
   );
 
   const handleDelete = async (sampleId) => {
-      if (window.confirm("Are you sure you want to delete this Test type?")) {
+      if (window.confirm("Are you sure you want to delete this Sample?")) {
         await deleteSampleType(sampleId);
         setSamples((prev) => prev.filter((s) => s.id !== sampleId));
       }
@@ -40,13 +44,15 @@ const TypeSample = ({ samples, filters, setFilters, setSamples }) => {
             className="p-2 border rounded bg-white flex justify-between items-center"
           >
             {sample.name}
-            <button
-            type="button"
-            onClick={() => handleDelete(sample.id)}
-            className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
-          >
-            Delete
-          </button>
+            {role === "admin" && (
+              <button
+                type="button"
+                onClick={() => handleDelete(sample.id)}
+                className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            )}
           </li>
         ))}
       </ul>

@@ -20,7 +20,7 @@ const SampleDetailsPage = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="p-4">
+    <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Sample Details</h2>
       <div className="bg-white shadow p-4 rounded space-y-2">
         <p><strong>ID:</strong> {sample.sample_id}</p>

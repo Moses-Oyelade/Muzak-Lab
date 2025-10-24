@@ -113,19 +113,7 @@ export default function ResultTrackerPage() {
                 <p className="text-sm text-gray-600">
                   Test: {sample.test_type?.name || "N/A"}
                 </p>
-                {/* <p
-                  className={`inline-block mt-2 px-2 py-1 rounded-full text-xs font-medium ${
-                    sample.status === "completed"
-                      ? "bg-green-100 text-green-800"
-                      : sample.status === "processing"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : sample.status === "received"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {sample.status}
-                </p> */}
+                
                 <StatusBadge status={toTitleCase(sample.status)} />
                 <p className="text-xs text-gray-500 mt-2">
                   Updated:{" "}

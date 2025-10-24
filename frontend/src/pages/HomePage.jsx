@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const HomePage = () => {
+  const { user } = useAuth();
+  const role = user.role;
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex flex-col justify-center items-center px-6 py-6">
       {/* Header */}
@@ -16,12 +21,21 @@ const HomePage = () => {
 
         {/* Call to Actions */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link
+          {role === "collector" ? 
+            <Link
+              to="/create-sample"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-700 transition"
+            >
+              Collect Sample
+            </Link>
+            :
+            <Link
             to="/result-tracker"
             className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-700 transition"
           >
             Sample Result
           </Link>
+          }
           <Link
             to="/dashboard"
             className="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200 transition"

@@ -22,7 +22,7 @@ const PatientsPage = () => {
     patientService.getAllPatients(params).then(data => {
       setPatients(data.results);
       setTotalPages(Math.ceil(data.count / limit));
-      console.log("send patient:", data.result) 
+      console.log("send patient:", data.results) 
       setLoading(false);
     });
   }, [genderFilter, searchQuery, currentPage]);
@@ -30,7 +30,7 @@ const PatientsPage = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div>
+    <div className='max-w-4xl mx-auto'>
       <div className="bg-slate-200 px-8 py-4 rounded-lg shadow-md flex justify-between items-end gap-4">
         {/* Gender Filter */}
         <div className='flex flex-wrap gap-4'>
