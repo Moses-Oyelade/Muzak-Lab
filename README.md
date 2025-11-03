@@ -1,5 +1,5 @@
 
-## Song-Muzak App
+## Muzak-Lab App
 Date, 2025/10/01
 By Moses O. Oyelade
 
