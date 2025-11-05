@@ -13,7 +13,7 @@ export default function Sidebar() {
     { to: "/", label: "Home" },
     { to: "/dashboard", label: "Dashboard" },
     { to: "/samples", label: "Samples" },
-    { to: "/create-sample", label: "Create Sample" },
+    { to: "/create-sample", label: "Collect Sample" },
     { to: "/patients", label: "Patients" },
     { to: "/test-types", label: "Test Types" },
     ...(role === "admin" ? [{ to: "/users", label: "Users" }] : []),

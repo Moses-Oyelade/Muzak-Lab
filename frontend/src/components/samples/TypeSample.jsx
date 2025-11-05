@@ -44,7 +44,7 @@ const TypeSample = ({ samples, filters, setFilters, setSamples }) => {
             className="p-2 border rounded bg-white flex justify-between items-center"
           >
             {sample.name}
-            {role === "admin" && (
+            {(role === "admin"||"technician") && (
               <button
                 type="button"
                 onClick={() => handleDelete(sample.id)}

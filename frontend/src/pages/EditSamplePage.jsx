@@ -18,8 +18,15 @@ const EditSamplePage = () => {
   });
 
   useEffect(() => {
-    getSampleById(id).then(setFormData);
-    setLoading(false);
+    getSampleById(id).then((data) => {
+      setFormData({
+        sample_id: data.id,
+        status: data.status,
+        sample_type: data.sample_type,
+        test_type_id: data.test_type_id
+      });
+      setLoading(false);
+    });
   }, [id]);
 
   const fetchTestTypes = () =>

@@ -30,10 +30,10 @@ const HomePage = () => {
             </Link>
             :
             <Link
-            to="/result-tracker"
+            to="/samples"
             className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-700 transition"
           >
-            Sample Result
+            Sample Analysis
           </Link>
           }
           <Link

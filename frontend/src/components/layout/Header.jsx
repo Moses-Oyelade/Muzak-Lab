@@ -21,6 +21,7 @@ const Header = () => {
             { location.pathname === '/' ? (
               <div className="font-bold text-2xl">🔬Home</div>
             ) 
+            // Clickable button to return to home page
             : 
             location.pathname === '/result-tracker' ? (
               <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Results</Link>
@@ -40,13 +41,13 @@ const Header = () => {
             >
               Track Result
             </Link>
-              <Link to="/patients" className='hover:text-lg hover:text-black hover:underline'>Patients</Link>
-              <button
-                onClick={handleLogout}
-                className='hover:text-lg hover:rounded hover:px-1 hover:bg-red-600'
-              >
-                Logout
-              </button>
+            <Link to="/patients" className='hover:text-lg hover:text-black hover:underline'>Patients</Link>
+            <button
+              onClick={handleLogout}
+              className='hover:text-lg hover:rounded hover:px-1 hover:bg-red-600'
+            >
+              Logout
+            </button>
           </div>
         </nav>
       )}
