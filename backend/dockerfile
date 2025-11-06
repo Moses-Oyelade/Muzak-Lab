@@ -1,26 +1,30 @@
-# Backend/Dockerfile
-FROM python:3.13-slim
+ARG PYTHON_VERSION=3.13-slim
 
-WORKDIR /app
-ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+FROM python:${PYTHON_VERSION}
 
-#System deps for psycopg2
-RUN apt-get update && apt-get install -y build-essential libpq-dev && rm -rf /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Copy requirements and install
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
+# install psycopg2 dependencies.
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
-#Copy app
-COPY . /app
+RUN mkdir -p /code
 
-# make entrypoint executable
-RUN chmod +x /app/entrypoint.sh
+WORKDIR /code
 
-# EXPOSE port
+COPY requirements.txt /tmp/requirements.txt
+RUN set -ex && \
+    pip install --upgrade pip && \
+    pip install -r /tmp/requirements.txt && \
+    rm -rf /root/.cache/
+COPY . /code
+
+ENV SECRET_KEY "Ij3dIDFU0STmNXMdkL8oh8MaYyopilmlTxZfbU455I26bgI8vD"
+RUN python manage.py collectstatic --noinput
+
 EXPOSE 8000
 
-# Entrypoint will migrate & collectstatic and then run gunicorn
-ENTRYPOINT ["/app/entrypoint.sh"]
-
-CMD ["gunicorn", "sampletracker.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "/dev/shm"]
+CMD ["gunicorn","--bind",":8000","--workers","2","sampletracker.wsgi"]
