@@ -177,4 +177,6 @@ SIMPLE_JWT = {
 # ]
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",") if os.getenv("CORS_ALLOWED_ORIGINS") else []
 
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+
 # CORS_ALLOWED_ORIGINS = True ## use this for all origin but not in production
