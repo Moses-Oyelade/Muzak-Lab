@@ -91,16 +91,7 @@ WSGI_APPLICATION = 'sampletracker.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('POSTGRES_DB', 'muzaklab'),
-#         'USER': os.environ.get('POSTGRES_DB', 'myuser'),
-#         'PASSWORD': os.environ.get('POSTGRES_DB', ''),
-#         'HOST': os.environ.get('POSTGRES_DB', 'localhost'),
-#         'PORT': os.environ.get('POSTGRES_DB', '5432'),
-#     }
-# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
