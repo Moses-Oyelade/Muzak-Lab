@@ -41,8 +41,8 @@ def seed_patients(n=5):
         patient = Patient.objects.create(
             name=fake.name(),
             date_of_birth=fake.date_of_birth(minimum_age=18, maximum_age=90),
-            gender=random.choice(['Male', 'Female', 'Other']),
-            phone=fake.phone_number(),
+            gender=random.choice(['Male', 'Female', 'Other'])[:50],
+            phone=fake.phone_number()[:50],
             email=fake.email(),
             identifier=fake.unique.uuid4()
         )
