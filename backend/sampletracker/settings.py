@@ -162,9 +162,6 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,               # blacklist old refresh tokens
 }
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-# ]
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",") if os.getenv("CORS_ALLOWED_ORIGINS") else []
 
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
