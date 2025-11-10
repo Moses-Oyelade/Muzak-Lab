@@ -23,7 +23,7 @@ export default function DashboardPage() {
           const formatted = {
             totalSamples: data?.total_samples ?? 0,
             completed: data?.completed ?? 0,
-            processingSamples: data?.processing ?? 0,
+            processingSamples: data?.pocessing ?? 0,
             receivedSamples: data?.received ?? 0,
             collectedSamples: data?.collected ?? 0,
             collectedToday: data?.collected_today ?? 0,
@@ -74,10 +74,11 @@ export default function DashboardPage() {
       {(role === "collector" &&'admin') && (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <Card title="Patients" value="124" description="Assigned to you" />
-            <Card title="Samples" value="58" description="Collected this week" />
-            <Card title="Completed Samples" value={summary.completed} description="Completed samples" />
+            <Card title="Collections" value="12" description="Assigned to you" />
+            <Card title="Patients" value="124" description="Total registered" />
           </div>
+
+          <ReportSummary summary = {summary}/> {/* Report Summary Chat */}
 
           <Section title="Pending Collections">
             <ul className="space-y-2">
@@ -95,8 +96,9 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Card title="Samples" value="58" description="Awaiting analysis" />
             <Card title="Reports" value="18" description="Completed today" />
-            <Card title="Completed Samples" value={summary.completed} description="Completed samples" />
           </div>
+
+          <ReportSummary summary = {summary}/> {/* Report Summary Chat */}
 
           <Section title="Lab Queue">
             <ul className="space-y-2">
