@@ -59,8 +59,8 @@ function App() {
           </Route>
 
           <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician', 'collector']} />}>
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/test-types" element={<TestTypesPage />} />
               <Route path="/samples" element={<SamplesPage />} />
             </Route>
