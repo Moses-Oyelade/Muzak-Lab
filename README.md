@@ -10,7 +10,7 @@ It provides structured sample processing, role-based user access, real-time stat
 
 ## Key Features
 * Role-based Access
-    - Collector: Can register sample
+    - Collector: Can register sample (sample collection)
     - Technician: Can update sample processing status
     - Admin: Full access and user management (optional customization)
 * Sample Lifecycle Tracking (Collected ➝ Received ➝ Processing ➝ Completed)
@@ -53,6 +53,19 @@ cd frontend
 npm install
 npm run dev
 ```
+
+## User Login Detail:
+    1. As Sample Collector;
+        ```
+        Username: collector_user
+        password: CollectorPass123
+        ```
+
+    2. As Technician;
+        ```
+        Username: tech_user
+        password: TechPass123
+        ```
 
 ## User Roles & Permissions
     Role	    Permissions
