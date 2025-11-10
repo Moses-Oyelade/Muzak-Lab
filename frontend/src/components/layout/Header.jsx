@@ -5,46 +5,61 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const location = useLocation();
-  
-  
 
   const handleLogout = () => {
     logout();
     navigate("/");
-  }
+  };
 
   return (
     <>
-    {user && (
-        <nav className="bg-blue-800 text-white px-8 py-4 flex justify-between items-center">
-          <div>
-            { location.pathname === '/' ? (
-              <div className="font-bold text-2xl">🔬Home</div>
-            ) 
-            // Clickable button to return to home page
-            : 
-            location.pathname === '/result-tracker' ? (
-              <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Results</Link>
-            )
-            : 
-            location.pathname === '/patients' ? (
-              <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Patients</Link>
+      {user && (
+        <nav className="bg-blue-800 text-white px-6 md:px-8 py-3 flex flex-col md:flex-row justify-between items-center">
+          {/* Left Section (App Title / Page Label) */}
+          <div className="mb-3 md:mb-0">
+            {location.pathname === '/' ? (
+              <div className="font-bold text-xl md:text-2xl">🔬Home</div>
+            ) : location.pathname === '/result-tracker' ? (
+              <Link
+                to="/"
+                className="font-bold text-xl md:text-2xl hover:text-slate-400"
+              >
+                🔬 Results
+              </Link>
+            ) : location.pathname === '/patients' ? (
+              <Link
+                to="/"
+                className="font-bold text-xl md:text-2xl hover:text-slate-400"
+              >
+                🔬 Patients
+              </Link>
             ) : (
-              <Link to="/" className="font-bold text-2xl hover:text-slate-400">🔬 Dashboard</Link>
-            )
-            }
+              <Link
+                to="/"
+                className="font-bold text-xl md:text-2xl hover:text-slate-400"
+              >
+                🔬 Dashboard
+              </Link>
+            )}
           </div>
-          <div className='space-x-8 drop-shadow-sm items- justify-between'>
-            <Link 
-              to="/result-tracker" 
-              className='hover:text-lg hover:text-black hover:underline'
+
+          {/* Right Section (Links) */}
+          <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8">
+            <Link
+              to="/result-tracker"
+              className="hover:text-lg hover:text-black hover:underline transition-all"
             >
               Track Result
             </Link>
-            <Link to="/patients" className='hover:text-lg hover:text-black hover:underline'>Patients</Link>
+            <Link
+              to="/patients"
+              className="hover:text-lg hover:text-black hover:underline transition-all"
+            >
+              Patients
+            </Link>
             <button
               onClick={handleLogout}
-              className='hover:text-lg hover:rounded hover:px-1 hover:bg-red-600'
+              className="hover:text-lg hover:rounded hover:px-2 hover:bg-red-600 transition-all"
             >
               Logout
             </button>

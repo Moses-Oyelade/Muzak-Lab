@@ -23,7 +23,7 @@ export default function DashboardPage() {
           const formatted = {
             totalSamples: data?.total_samples ?? 0,
             completed: data?.completed ?? 0,
-            processingSamples: data?.pocessing ?? 0,
+            processingSamples: data?.processing ?? 0,
             receivedSamples: data?.received ?? 0,
             collectedSamples: data?.collected ?? 0,
             collectedToday: data?.collected_today ?? 0,

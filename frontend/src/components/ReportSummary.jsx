@@ -34,12 +34,12 @@ export default function ReportSummary({ summary }) {
 
   // Chart data
   const chartData = [
-    { name: "Total Sample", count: totalSamples },
+    { name: "Total", count: totalSamples },
     { name: "Completed", count: completed },
     { name: "Processing", count: processingSamples },
     { name: "Received", count: receivedSamples },
     { name: "Collected", count: collectedSamples },
-    { name: "Collected Today", count: collectedToday },
+    { name: "Today", count: collectedToday },
   ];
 
   return (
@@ -88,11 +88,11 @@ export default function ReportSummary({ summary }) {
       </div>
 
       {/* Chart Section */}
-      <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
-        <h3 className="text-lg font-semibold mb-2 text-gray-700">
+      <div className="bg-gray-50 p-1 sm:p-4 rounded-lg shadow-inner">
+        <h3 className="text-base sm:text-xl font-semibold mb-2 text-gray-700">
           Sample Status Distribution
         </h3>
-        <ResponsiveContainer className={'sm: text-sm'} width="100%" height={300}>
+        <ResponsiveContainer className={'sm:text-lg text-xs'} width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
