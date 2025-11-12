@@ -81,9 +81,9 @@ function App() {
                 <Route path="/sample-types" element={<SampleTypePage />} />
               </Route>
             </Route>
+          </Route>
             
             <Route path="*" element={<Navigate to='/unauthorized' replace />} />
-          </Route>
         </Routes>
       </div>
     </AuthProvider>
