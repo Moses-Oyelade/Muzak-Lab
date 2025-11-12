@@ -42,48 +42,48 @@ function App() {
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           
           <Route element={<ProtectedRoute />}>
-            <Route path='/' element={<HomePage />} />
-            <Route element={<DashboardLayout />}>
-              <Route path="/result-tracker" element={<ResultTrackerPage />} />
-            </Route>
-          </Route>
-
-          <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
-            <Route element={<DashboardLayout />}>
-              <Route path="/users" element={<UsersPage />} />
-              <Route path='/create-patient' element={<CreatePatient />} />
-              <Route path="/users/:id" element={<UserDetailsPage />} />
-              <Route path='/users/:id/edit' element={<EditUserPage />} />
-              <Route path='/create-user' element={<CreateUserPage />} />
-            </Route>
-          </Route>
-
-          <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician', 'collector']} />}>
-            <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/test-types" element={<TestTypesPage />} />
-              <Route path="/samples" element={<SamplesPage />} />
-            </Route>
-          </Route>
-
-          <Route element={<RoleProtectedRoute allowedRoles={['admin', 'collector']} />}>
-            <Route element={<DashboardLayout />}>
-              <Route path="/patients" element={<PatientsPage />} />
-              <Route path="/patients/:id" element={<PatientDetailsPage />} />
-              <Route path="/patients/:id/edit" element={<EditPatientPage />} />
-              <Route path="/create-sample" element={<CreateSamplePage />} />
-            </Route>
-          </Route>
-
-          <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician']} />}>
-            <Route element={<DashboardLayout />}>
-              <Route path="/samples/:id" element={<SampleDetailsPage />} />
-              <Route path="/samples/:id/edit" element={<EditSamplePage />} />
-              <Route path="/sample-types" element={<SampleTypePage />} />
-            </Route>
-          </Route>
+              <Route path='/' element={<HomePage />} />
+              <Route element={<DashboardLayout />}>
+                <Route path="/result-tracker" element={<ResultTrackerPage />} />
+              </Route>
           
-          <Route path="*" element={<Navigate to='/unauthorized' replace />} />
+            <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
+              <Route element={<DashboardLayout />}>
+                <Route path="/users" element={<UsersPage />} />
+                <Route path='/create-patient' element={<CreatePatient />} />
+                <Route path="/users/:id" element={<UserDetailsPage />} />
+                <Route path='/users/:id/edit' element={<EditUserPage />} />
+                <Route path='/create-user' element={<CreateUserPage />} />
+              </Route>
+            </Route>
+
+            <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician', 'collector']} />}>
+              <Route element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/test-types" element={<TestTypesPage />} />
+                <Route path="/samples" element={<SamplesPage />} />
+              </Route>
+            </Route>
+
+            <Route element={<RoleProtectedRoute allowedRoles={['admin', 'collector']} />}>
+              <Route element={<DashboardLayout />}>
+                <Route path="/patients" element={<PatientsPage />} />
+                <Route path="/patients/:id" element={<PatientDetailsPage />} />
+                <Route path="/patients/:id/edit" element={<EditPatientPage />} />
+                <Route path="/create-sample" element={<CreateSamplePage />} />
+              </Route>
+            </Route>
+
+            <Route element={<RoleProtectedRoute allowedRoles={['admin', 'technician']} />}>
+              <Route element={<DashboardLayout />}>
+                <Route path="/samples/:id" element={<SampleDetailsPage />} />
+                <Route path="/samples/:id/edit" element={<EditSamplePage />} />
+                <Route path="/sample-types" element={<SampleTypePage />} />
+              </Route>
+            </Route>
+            
+            <Route path="*" element={<Navigate to='/unauthorized' replace />} />
+          </Route>
         </Routes>
       </div>
     </AuthProvider>
