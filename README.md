@@ -54,19 +54,6 @@ npm install
 npm run dev
 ```
 
-## User Login Detail:
-    1. As Sample Collector;
-        ```
-        Username: collector_user
-        password: CollectorPass123
-        ```
-
-    2. As Technician;
-        ```
-        Username: tech_user
-        password: TechPass123
-        ```
-
 ## User Roles & Permissions
     Role	    Permissions
     Admin	    Manage users, view and update all samples
